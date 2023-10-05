@@ -107,6 +107,13 @@ Route::controller(AuthController::class)->group( function(){
     
 
     Route::get('home', [CarritoController::class, 'index'])->name('carrtio.index');
+    
+    Route::get('carrito-compra', [CarritoController::class, 'carrito'])->name('ir.a.carrito');
+
+    Route::get('producto/{id}', [CarritoController::class, 'agregarACarrito'])->name('agregar.a.carrito');
+
+    Route::delete('delete-producto', [CarritoController::class, 'deleteProducto'])->name('eliminar.producto.carrito');
+
 
 
 

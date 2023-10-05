@@ -48,7 +48,7 @@
                                             <td>{{$producto->cantidad}}</td>
                                             <td>{{$producto->precio}}</td>
                                             <td>
-                                                <img src="{{$producto->images[0]->url}}" alt="" width="90rm" height="150"> 
+                                                <img src="{{$producto->images[0]->url}}" width="90rm" height="150"> 
                                             </td>
                                             
                                             <td>

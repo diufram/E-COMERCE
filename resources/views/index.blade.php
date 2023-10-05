@@ -24,16 +24,23 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         
                     </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
+                   
+                        <a class="btn btn-outline-dark" href="{{route('ir.a.carrito')}}" >
+                            <i  class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">{{count((array) session('carrito'))}}</span>
+                        </a>
+                    
                 </div>
             </div>
         </nav>
+        <div class="container mt-4">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif
+        </div>
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
@@ -68,7 +75,7 @@
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('productos.show',$producto)}}">VER</a></div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">AGREGAR AL CARRITO</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('agregar.a.carrito',$producto->id)}}">AGREGAR AL CARRITO</a></div>
                             </div>
                         </div>
                     </div>
