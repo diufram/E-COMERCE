@@ -56,5 +56,14 @@ class DatabaseSeeder extends Seeder
             'id'=>'2', 
             'size'=>'XS',
          ]);
+
+         \App\Models\Tpago::create([
+            'id'=>1,
+            'nombre'=>'QR'
+         ]);
+         \App\Models\Tpago::create([
+            'id'=>2,
+            'nombre'=>'Tarjeta de credito'
+         ]);
     }
 }

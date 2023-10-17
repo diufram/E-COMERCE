@@ -15,12 +15,14 @@ class Pedido extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function tpago(){
+    public function pago(){
         return $this->belongsTo('App\Models\Tpago');
     }
 
     // relacion mucho a muchos 
-    public function productos(){
-        return $this->belogsToMany('App\Models\Poducto');
+    public function detalles(){
+        return $this->belongsToMany('App\Models\Detalle_Pedido');
     }
+
+
 }

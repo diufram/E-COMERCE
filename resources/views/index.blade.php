@@ -24,12 +24,23 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         
                     </ul>
-                   
-                        <a class="btn btn-outline-dark" href="{{route('ir.a.carrito')}}" >
-                            <i  class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">{{count((array) session('carrito'))}}</span>
-                        </a>
+                  
+                    
+                    @auth
+                    <form action="{{route('cierre.Sesion')}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-dark">CIERRE SESION</button>
+                    </form>
+
+                    &nbsp;
+
+                    <a class="btn btn-outline-dark" href="{{route('ir.a.carrito')}}" >
+                        <i  class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">{{count((array) session('carrito'))}}</span>
+                    </a>
+                    @endauth
+                        
                     
                 </div>
             </div>
@@ -74,9 +85,11 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('productos.show',$producto)}}">VER</a></div>
                             </div>
+                            @auth                
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('agregar.a.carrito',$producto->id)}}">AGREGAR AL CARRITO</a></div>
                             </div>
+                            @endauth
                         </div>
                     </div>
                     @endforeach

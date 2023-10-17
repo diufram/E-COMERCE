@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('img')->nullable();
             $table->unsignedBigInteger('talla_id')->nullable();
             $table->string('color');
             $table->bigInteger('cantidad');
@@ -27,7 +28,7 @@ return new class extends Migration
         });
     }
 
-    /**
+    /**<
      * Reverse the migrations.
      */
     public function down(): void

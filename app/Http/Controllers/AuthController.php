@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 
 use App\Http\Controllers\Controller;
+use App\Models\Producto;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -50,8 +51,8 @@ class AuthController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return view('dashboard');
+        $productos = Producto::all();
+        return view('index',compact('productos'));
     }
 
     public function cierreSesion(Request $request): RedirectResponse

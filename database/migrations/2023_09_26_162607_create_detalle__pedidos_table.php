@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detalle__pedidos', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('producto_id');
+            $table->integer('cantidad');
+            $table->float('precio');
+            $table->string('nombre');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->timestamps();

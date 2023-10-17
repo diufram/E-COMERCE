@@ -52,8 +52,10 @@ class UserController extends Controller
                     "access_token" =>$accessToken
                 ];
             }
+            return response()->json($data,200);
         }
-        return response()->json($data,200);
+        return response()->json($data,404);
+        
     }
 
     public function logout(){

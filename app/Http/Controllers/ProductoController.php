@@ -35,6 +35,7 @@ class ProductoController extends Controller
         $producto->sucursal_id = $request->sucursal_id;
         
         $producto->save();
+        
 
         $request->validate([
             'file.*' =>'required|image'
@@ -51,6 +52,10 @@ class ProductoController extends Controller
             $image->url = $url;
             $image->save();
         }
+        $producto->img = $url;
+        $producto->save();
+
+        
         
         return redirect()->route('productos.index',$producto);
 

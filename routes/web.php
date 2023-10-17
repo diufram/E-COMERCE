@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\TallaController;
+use App\Http\Controllers\VentaControllerController;
+use App\Models\VentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,54 +26,10 @@ Route::get('/home', function () {
     return view('home');
 })->name('hola');
 */
-/*
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-*/
-/*Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    //CATEGORIAS
-    Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
-    Route::get('categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
-    Route::post('categorias', [CategoriaController::class, 'store'])->name('categorias.store');
-    Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
-    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
-    Route::put('categorias/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
-    
 
-    //PRODUCTOS
-    Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');
-    Route::get('productos/create', [ProductoController::class, 'create'])->name('productos.create');
-    Route::post('productos', [ProductoController::class, 'store'])->name('productos.store');
-    Route::get('productos/{productos}', [ProductoController::class, 'show'])->name('productos.show');
-    Route::get('productos/{productos}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
-    Route::put('productos/{productos}', [ProductoController::class, 'update'])->name('productos.update');
+Route::middleware('auth')->group(function () {
 
-    //SUCURSALES
-    Route::get('sucursals', [SucursalController::class, 'index'])->name('sucursals.index');
-    Route::get('sucursals/create', [SucursalController::class, 'create'])->name('sucursals.create');
-    //TALLAS
     
-    
-    
-});*/
-
-Route::controller(AuthController::class)->group( function(){
-    Route::get('registro','registro')->name('registro');
-    Route::post('registro','registroSave')->name('registro.save');
-    
-    Route::get('iniciar','iniciar')->name('iniciar');
-    Route::post('iniciar','iniciarAction')->name('iniciar.Action');
-    
-    Route::post('cierre','cierre')->name('cierre');
-    Route::post('cierre','cierreSesion')->name('cierre.Sesion');
-    
-});
-
 
     Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');
     Route::get('productos/create', [ProductoController::class, 'create'])->name('productos.create');
@@ -106,7 +64,7 @@ Route::controller(AuthController::class)->group( function(){
     Route::delete('tallas/{talla}', [TallaController::class, 'destroy'])->name('tallas.delete');
     
 
-    Route::get('home', [CarritoController::class, 'index'])->name('carrtio.index');
+    
     
     Route::get('carrito-compra', [CarritoController::class, 'carrito'])->name('ir.a.carrito');
 
@@ -114,16 +72,40 @@ Route::controller(AuthController::class)->group( function(){
 
     Route::delete('delete-producto', [CarritoController::class, 'deleteProducto'])->name('eliminar.producto.carrito');
 
+    Route::post('home',[CarritoController::class,'venta'])->name('venta.create');
 
 
 
 
+
+
+    Route::get('ventas',[VentaControllerController::class,'index'])->name('ventas.index');
+    Route::delete('ventas/{venta}', [VentaControllerController::class, 'delete'])->name('ventas.delete');
+    Route::get('ventas/{venta}',[VentaControllerController::class, 'show'])->name('ventas.show');
+
+    
+});
+
+Route::controller(AuthController::class)->group( function(){
+    Route::get('registro','registro')->name('registro');
+    Route::post('registro','registroSave')->name('registro.save');
+    
+    Route::get('iniciar','iniciar')->name('iniciar');
+    Route::post('iniciar','iniciarAction')->name('iniciar.Action');
+    
+    Route::post('cierre','cierre')->name('cierre');
+    Route::post('cierre','cierreSesion')->name('cierre.Sesion');
+    
+});
+
+
+    Route::get('home', [CarritoController::class, 'index'])->name('carrtio.index');
 
 
     
-
+/*
 Route::get('/product', function () {
     return view('Producto.index');
-});
+});*/
 
 require __DIR__.'/auth.php';

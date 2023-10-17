@@ -36,13 +36,15 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('carrtio.index')}}">Home</a></li>
                     
                 </ul>
-               
+                  
+                        
+                    
+                
                     <a class="btn btn-outline-dark" href="{{route('ir.a.carrito')}}" >
                         <i  class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-dark text-white ms-1 rounded-pill">{{count((array) session('carrito'))}}</span>
-                    </a>
-                
+                    </a>    
             </div>
         </div>
     </nav>
@@ -65,55 +67,58 @@
             
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>PRODUCTO</th>
-                                    <th>PRECIO</th>
-                                    <th>CANTIDAD</th>
-                                    <th>IMAGEN</th>
-                                    <th>SUBTOTAL</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            
+                        <form action="{{route('venta.create')}}"  method="post">
+                            @csrf
+                            <table class="table table-bordered" id="carrito" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>PRODUCTO</th>
+                                        <th>PRECIO</th>
+                                        <th>CANTIDAD</th>
+                                        <th>IMAGEN</th>
+                                        <th>SUBTOTAL</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
                                 
-                            
-                            <tbody>
-                                @if (session('carrito'))
-                                    @foreach (session('carrito') as $id => $detalles)
-                                        <tr rowId="{{$id}}">
-                                            <td>{{$detalles['nombre']}}</td>
-                                            <td>{{$detalles['precio']}} BOB</td>
-                                            <td>{{$detalles['cantidad']}}</td>
-                                            <td>
-                                                <img src="{{$detalles['image']}}" width="60" height="80"> 
-                                            </td>
-                                            <td oninput="calcular()" id="subtotal">
-                                                {{$detalles['precio']* $detalles['cantidad']}} BOB
-                                            </td>
-                                            <td class="actions">
-                                                <a class="btn btn-outline-danger btn-sm delete-product"> <i class="material-icons">delete_outline</i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>TOTAL
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td id="total"> BOB</td>
-                                    </th>
-
-                                </tr>
+                                    
                                 
-                            </tfoot>
-                            
-                            
-                        </table>
+                                <tbody>
+                                    @if (session('carrito'))
+                                        @foreach (session('carrito') as $id => $detalles)
+                                            <tr rowId="{{$id}}">
+                                                <td id="producto" >{{$detalles['nombre']}}</td>
+                                                <td>{{$detalles['precio']}} BOB</td>
+                                                <td id="cantidad">{{$detalles['cantidad']}}</td>
+                                                <td>
+                                                    <img src="{{$detalles['image']}}" width="60" height="80"> 
+                                                </td>
+                                                <td  id="subtotal">{{$detalles['precio'] * $detalles['cantidad']}} BOB</td>
+                                                <td class="actions">
+                                                    <a class="btn btn-outline-danger btn-sm delete-product"> <i class="material-icons">delete_outline</i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>TOTAL
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td id="total"></td>
+                                            <input id = "total1" type="text" hidden name="total" onblur="total()" >
+                                        </th>
+    
+                                    </tr>
+                                    
+                                </tfoot>
+                                
+                                
+                            </table>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">PAGAR</button>
+                        </form>
                     </div>
                 </div>
     
@@ -145,16 +150,23 @@
         <!-- Core theme JS-->
         <script src="{{asset('carrito/js/scripts.js')}}"></script>
 
-<script>
-        document.getElementById('subtotal').onchange=function(e){
-            var subtotal=100;
-            for(var i = 0; i< 1;i++){
-                subtotal+= document.getElementById('subtotal').value;
-            }
-            document.getElementById("total").value = subtotal;
-            $
+<script type="text/javascript">
+   var filas  = document.querySelectorAll("#carrito tbody tr");
+   var col = document.querySelectorAll("#carrito tbody tr td");
+   var s = document.querySelectorAll("#subtotal");
+   let total = 0;
+   for (let i = 0; i < s.length; i++) {
+        total +=parseInt(s[i].innerHTML);
+   }
+   console.log(total);
 
-        }
+   document.getElementById("total").innerHTML = total +" BOB";
+   var List = [];
+   List.add(1);
+   document.getElementById("total1").value = List;
+   
+
+   
 
 </script>
 </html>
